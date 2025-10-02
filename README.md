@@ -1,4 +1,4 @@
-# paper_clip_ideas
+# Paper Clip Ideas
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -88,7 +88,131 @@ Final save: Updated paperclip_uses.csv with 1086 validated uses
 
 ## Limitations
 - **API Costs**: Free tier has limits; monitor usage to avoid quotas.
-- **Non-Conductive Assumption**: The prompt assumes the wire is non-conductive to avoid electrical uses—edit if needed.
+- **Non-Conductive Assumption**: The prompt assumes the wire is non-conductive to avoid electrical usWire Uses Generator and Validator
+This project consists of two Jupyter Notebook scripts designed to generate and validate creative, non-electrical uses for a small, bendable, non-conductive metal wire (3-5 cm long, similar to a paperclip but avoiding the term "paperclip"). The scripts leverage Google's Gemini API for generation and validation, combined with a sentence transformer model to ensure the uniqueness of generated uses. The output is stored and updated in a CSV file (paperclip_uses.csv).
+
+paper_clip_ideas.ipynb: Generates unique categories and uses for the wire.
+usage_check.ipynb: Validates the feasibility and novelty of the generated uses.
+
+Project Overview
+The project is a test implementation showcasing API integration, semantic similarity checking, and robust data processing. It generates creative uses for a small, non-conductive wire across diverse categories (e.g., mechanical, artistic, household) and validates them to ensure they are practical and novel. The scripts handle large datasets, enforce rate limits, and save progress incrementally to paperclip_uses.csv.
+Key Features
+
+Use Generation: Creates novel, non-electrical uses (e.g., "Dollhouse Coat Hanger", "SIM Ejector Tool") in varied categories like "Tiny Sculptural Element" or "Emergency Tool Improviser".
+Uniqueness Check: Uses the all-MiniLM-L6-v2 sentence transformer to filter out duplicate uses and categories based on a 0.75 similarity threshold.
+API Integration: Employs Gemini API (gemini-2.5-flash-lite for generation, gemini-2.0-flash-lite for validation) with rate limiting (15 calls/minute) and retry logic for reliability.
+Data Management: Stores results in paperclip_uses.csv with columns: Use, Category, Valid, Explanation. Incremental saves occur after every batch or 15 validations.
+Output Summary: Displays total uses, valid uses, category distribution, and sample results after generation and validation.
+
+Prerequisites
+
+Python 3.11+ (tested with 3.11.13).
+A Google Generative AI API key (available via Google AI Studio).
+Jupyter Notebook or JupyterLab.
+
+Required Packages
+Install dependencies using pip:
+pip install google-generative-ai pandas sentence-transformers tenacity ratelimit numpy
+
+Setup
+
+Clone the Repository:
+git clone https://github.com/your-username/wire-uses-generator-validator.git
+cd wire-uses-generator-validator
+
+
+Set Up API Key:
+
+Open paper_clip_ideas.ipynb and usage_check.ipynb.
+Replace API_KEY = 'AIzaSyD5YO3-yDLVQFkaheIewRHm-V45jIpG4Gs' with your actual Gemini API key, or use os.getenv('API_KEY') for environment variable setup.
+
+
+CSV File:
+
+The scripts use paperclip_uses.csv for data storage.
+If starting fresh, paper_clip_ideas.ipynb creates it with columns: Use, Category, Valid (empty), Explanation (empty).
+Example row: "Miniature Vine Trellis","Tiny Sculptural Element","","".
+
+
+
+Usage
+1. Generating Uses (paper_clip_ideas.ipynb)
+
+Run:jupyter notebook paper_clip_ideas.ipynb
+
+
+Process:
+Loads existing data from paperclip_uses.csv (if present), filtering out electrical-related categories.
+Generates 5 new categories at a time (e.g., "Tiny Sculptural Element") and 5 uses per category (e.g., "Dollhouse Coat Hanger").
+Ensures uniqueness using semantic similarity checks.
+Saves unique uses to paperclip_uses.csv after each batch.
+Continues until reaching 1000 uses (configurable) or exhausting unique categories/uses.
+
+
+Output:2025-10-02 02:04:58,699 - INFO - Loaded 0 existing uses and 0 categories
+2025-10-02 02:04:59,123 - INFO - ✓ Saved 4 new uses from 'Tiny Sculptural Element' (Total: 4)
+...
+✓ Total unique uses generated: 1086
+✓ Categories covered: 25
+📊 Uses per category:
+Tiny Sculptural Element    150
+Emergency Tool Improviser  120
+...
+📝 Sample uses:
+Dollhouse Coat Hanger
+SIM Ejector Tool
+...
+
+
+
+2. Validating Uses (usage_check.ipynb)
+
+Run:jupyter notebook usage_check.ipynb
+
+
+Process:
+Loads paperclip_uses.csv and processes unvalidated rows (empty Valid or Explanation).
+Validates each use for feasibility and novelty using Gemini API, ensuring non-electrical applications.
+Updates paperclip_uses.csv with Valid (Yes/No) and Explanation columns, saving every 15 validations.
+
+
+Output:2025-10-02 02:04:58,699 - INFO - Loaded 1086 uses for validation
+2025-10-02 02:05:14,532 - INFO - Incremental save after 15 validations
+...
+✓ Total uses validated: 1086
+✓ Valid uses: 543
+✓ Categories covered: 25
+📊 Uses per category:
+Tiny Sculptural Element    150
+Emergency Tool Improviser  120
+...
+📝 Sample validated uses:
+Use                      Category                   Valid  Explanation
+Dollhouse Coat Hanger   Tiny Sculptural Element    Yes    The wire's size and bendability...
+SIM Ejector Tool        Emergency Tool Improviser Yes    The wire's small size and bendability...
+...
+
+
+
+Configuration
+
+Generation (paper_clip_ideas.ipynb):
+target_uses = 1000: Set desired number of uses.
+similarity_threshold = 0.75: Adjust for stricter/lenient uniqueness checks.
+CALLS_PER_MINUTE = 15, PERIOD = 60: Modify rate limits based on API tier.
+Customize CATEGORY_GENERATION_PROMPT and USE_GENERATION_PROMPT for alternative use cases.
+
+
+Validation (usage_check.ipynb):
+SAVE_INTERVAL = 15: Adjust frequency of incremental saves.
+CALLS_PER_MINUTE = 15, PERIOD = 60: Modify rate limits.
+Edit VALIDATION_PROMPT for different validation criteria.
+
+
+Models: Uses gemini-2.5-flash-lite (generation) and gemini-2.0-flash-lite (validation). Switch to other Gemini models (e.g., gemini-pro) if needed.
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.es—edit if needed.
 - **Error Handling**: Retries on exceptions, but persistent API issues may mark uses as invalid.
 - **Test Project**: This is a proof-of-concept; not optimized for production-scale validation.
 
