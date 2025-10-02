@@ -24,18 +24,17 @@ Install the dependencies using pip:
 ```
 pip install google-generative-ai pandas tenacity ratelimit
 ```
-(Note: Basic Python libraries like `logging`, `os`, and `csv` are included in the standard library.)
 
 ## Setup
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/wire-uses-validator.git
-   cd wire-uses-validator
+   git clone https://github.com/gui-llotiner/paper_clip_ideas.git
+   cd paper_clip_ideas
    ```
 
 2. Add your API key:
    - Open `usage_check.ipynb`.
-   - Replace the placeholder in `API_KEY = 'AIzaSyD5YO3-yDLVQFkaheIewRHm-V45jIpG4Gs'` with your actual Gemini API key.
+   - Replace the placeholder in `API_KEY = 'YOUR-API-KEY'` with your actual Gemini API key.
    - (Optional) Use environment variables for security: Set `API_KEY` via `os.getenv('API_KEY')`.
 
 3. Prepare the CSV file:
@@ -57,9 +56,6 @@ pip install google-generative-ai pandas tenacity ratelimit
      ✓ Total uses validated: 1086
      ✓ Valid uses: 500
      ✓ Categories covered: 20
-     📊 Uses per category:
-     ...
-     📝 Sample validated uses:
      ...
      ```
 
@@ -88,21 +84,9 @@ Final save: Updated paperclip_uses.csv with 1086 validated uses
 
 ## Limitations
 - **API Costs**: Free tier has limits; monitor usage to avoid quotas.
-- **Non-Conductive Assumption**: The prompt assumes the wire is non-conductive to avoid electrical usWire Uses Generator and Validator
-This project consists of two Jupyter Notebook scripts designed to generate and validate creative, non-electrical uses for a small, bendable, non-conductive metal wire (3-5 cm long, similar to a paperclip but avoiding the term "paperclip"). The scripts leverage Google's Gemini API for generation and validation, combined with a sentence transformer model to ensure the uniqueness of generated uses. The output is stored and updated in a CSV file (paperclip_uses.csv).
 
 paper_clip_ideas.ipynb: Generates unique categories and uses for the wire.
 usage_check.ipynb: Validates the feasibility and novelty of the generated uses.
-
-Project Overview
-The project is a test implementation showcasing API integration, semantic similarity checking, and robust data processing. It generates creative uses for a small, non-conductive wire across diverse categories (e.g., mechanical, artistic, household) and validates them to ensure they are practical and novel. The scripts handle large datasets, enforce rate limits, and save progress incrementally to paperclip_uses.csv.
-Key Features
-
-Use Generation: Creates novel, non-electrical uses (e.g., "Dollhouse Coat Hanger", "SIM Ejector Tool") in varied categories like "Tiny Sculptural Element" or "Emergency Tool Improviser".
-Uniqueness Check: Uses the all-MiniLM-L6-v2 sentence transformer to filter out duplicate uses and categories based on a 0.75 similarity threshold.
-API Integration: Employs Gemini API (gemini-2.5-flash-lite for generation, gemini-2.0-flash-lite for validation) with rate limiting (15 calls/minute) and retry logic for reliability.
-Data Management: Stores results in paperclip_uses.csv with columns: Use, Category, Valid, Explanation. Incremental saves occur after every batch or 15 validations.
-Output Summary: Displays total uses, valid uses, category distribution, and sample results after generation and validation.
 
 Prerequisites
 
@@ -119,13 +103,6 @@ Setup
 Clone the Repository:
 git clone https://github.com/your-username/wire-uses-generator-validator.git
 cd wire-uses-generator-validator
-
-
-Set Up API Key:
-
-Open paper_clip_ideas.ipynb and usage_check.ipynb.
-Replace API_KEY = 'AIzaSyD5YO3-yDLVQFkaheIewRHm-V45jIpG4Gs' with your actual Gemini API key, or use os.getenv('API_KEY') for environment variable setup.
-
 
 CSV File:
 
