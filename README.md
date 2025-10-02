@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-This repository contains a Jupyter Notebook script for validating creative uses of a small, bendable metal wire (similar to a paperclip, but without explicitly using that term in prompts). The script uses Google's Gemini API to evaluate whether each proposed use is valid, feasible, and novel based on the wire's properties (e.g., small size, bendable, non-conductive).
+This repository contains a Jupyter Notebook script for validating creative uses of paperclip. The script uses Google's Gemini API to evaluate whether each proposed use is valid, feasible, and novel based on the wire's properties (e.g., small size, bendable, conductive).
 
 The validation process reads from a CSV file (`paperclip_uses.csv`), processes unvalidated entries, and updates the file with validation results (Yes/No) and brief explanations. It's designed as a test project to demonstrate API integration, rate limiting, and data processing.
 
