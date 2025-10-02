@@ -82,9 +82,6 @@ Final save: Updated paperclip_uses.csv with 1086 validated uses
 - **Validation Prompt**: Customize `VALIDATION_PROMPT` for different evaluation criteria (e.g., emphasize novelty).
 - **Model**: Uses `'gemini-2.0-flash-lite'`; switch to other Gemini models if needed (e.g., `'gemini-pro'`).
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 - Built with [Google Generative AI](https://ai.google.dev/).
 - Inspired by paperclip test (part of the hiring process of CloudWalk - Nimbus Project).
